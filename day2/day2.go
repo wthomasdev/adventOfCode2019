@@ -12,12 +12,12 @@ func main() {
 	numbers[1] = 12
 	numbers[2] = 2
 
-	fmt.Println("answer", calculateOpCode(numbers, 1, 2, 12, 2))
+	fmt.Println("answer", calculateOpCode(numbers, 1, 12, 2, 2))
 }
 
-func calculateOpCode(numbers []int, modifierloc1 int, modifierloc2 int, modifierNum1 int, modifierNum2 int) int {
-	numbers[modifierloc1] = modifierNum1
-	numbers[modifierloc2] = modifierNum2
+func calculateOpCode(numbers []int, modifierLoc1 int, modifierNum1 int, modifierLoc2 int, modifierNum2 int) int {
+	numbers[modifierLoc1] = modifierNum1
+	numbers[modifierLoc2] = modifierNum2
 	for i := 0; i < len(numbers); i += stepForward {
 		if numbers[i] == 99 {
 			break
