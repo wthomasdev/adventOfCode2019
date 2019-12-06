@@ -1,12 +1,12 @@
 package main
 
 import (
-	"adventOfCode2019/datautils"
+	inputreader "adventOfCode2019/datautils"
 	"fmt"
 )
 
 func main() {
-	numbers := inputreader.Readfile("../data/day01a.txt")
+	numbers := inputreader.Readfile("../data/day01a.txt", "\n")
 	fmt.Println(calculateTotalFuel(numbers))
 }
 

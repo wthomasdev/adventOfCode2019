@@ -9,12 +9,13 @@ import (
 )
 
 // Readfile takes in a path and returns an int array
-func Readfile(filepath string) []int {
+func Readfile(filepath string, separator string) []int {
 	file, err := ioutil.ReadFile(filepath)
+	sanitizedFile := strings.TrimSpace(string(file))
 	if err != nil {
 		log.Fatalf("could not read file %e", err)
 	}
-	nStrings := strings.Split(string(file), "\n")
+	nStrings := strings.Split(sanitizedFile, separator)
 	numbers := []int{}
 	for _, nS := range nStrings {
 		i, err := strconv.Atoi(nS)
