@@ -3,7 +3,6 @@ package main
 import (
 	inputreader "adventOfCode2019/datautils"
 	"fmt"
-	"math/rand"
 )
 
 const stepForward = 4
@@ -12,21 +11,21 @@ const expectedOutput = 19690720
 
 func main() {
 	numbers := inputreader.Readfile("../data/day02a.txt", ",")
-	fmt.Println("answer", calculateNounAndVerb(numbers))
+	answer, _ := calculateNounAndVerb(numbers)
+	fmt.Printf("Answer: %v \n", answer)
 }
 
-func calculateNounAndVerb(numbers []int) int {
-	intResult := 0
-	noun := 0
-	verb := 0
-	for intResult != expectedOutput {
-		noun = rand.Intn(99)
-		verb = rand.Intn(99)
-		input := []int{}
-		input = append(input, numbers...)
-		intResult = intCodeComputer(input, noun, verb)
+func calculateNounAndVerb(numbers []int) (int, error) {
+	for n := 0; n < 99; n++ {
+		for v := 0; v < 99; v++ {
+			input := append([]int{}, numbers...)
+			outut := intCodeComputer(input, n, v)
+			if outut == expectedOutput {
+				return 100*n + v, nil
+			}
+		}
 	}
-	return 100*noun + verb
+	return 0, fmt.Errorf("Could not find the answer")
 }
 
 func intCodeComputer(numbers []int, noun, verb int) int {
