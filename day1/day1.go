@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	numbers := inputreader.Readfile("../data/day01a.txt", "\n")
+	numbers := inputreader.ReadNumberfile("../data/day01a.txt", "\n")
 	fmt.Println(calculateTotalFuel(numbers))
 }
 

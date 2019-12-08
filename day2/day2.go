@@ -10,7 +10,7 @@ const breakCode = 99
 const expectedOutput = 19690720
 
 func main() {
-	numbers := inputreader.Readfile("../data/day02a.txt", ",")
+	numbers := inputreader.ReadNumberfile("../data/day02a.txt", ",")
 	answer, _ := calculateNounAndVerb(numbers)
 	fmt.Printf("Answer: %v \n", answer)
 }

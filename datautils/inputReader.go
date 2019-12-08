@@ -8,8 +8,8 @@ import (
 	"strings"
 )
 
-// Readfile takes in a path and returns an int array
-func Readfile(filepath string, separator string) []int {
+// ReadNumberfile takes in a path and returns an int array
+func ReadNumberfile(filepath string, separator string) []int {
 	file, err := ioutil.ReadFile(filepath)
 	sanitizedFile := strings.TrimSpace(string(file))
 	if err != nil {
@@ -25,4 +25,14 @@ func Readfile(filepath string, separator string) []int {
 		numbers = append(numbers, i)
 	}
 	return numbers
+}
+
+// ReadStringFile takes in a path and returns an string array
+func ReadStringFile(filePath string, separator string) []string {
+	file, err := ioutil.ReadFile(filePath)
+	sanitizedFile := strings.TrimSpace(string(file))
+	if err != nil {
+		log.Fatalf("could not read file %e", err)
+	}
+	return strings.Split(sanitizedFile, separator)
 }
