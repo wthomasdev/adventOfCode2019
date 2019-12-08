@@ -15,30 +15,68 @@ type Point struct {
 }
 
 // WireGrid stores the locations both wires have travelled
-type WireGrid map[Point]bool
+type WireGrid map[Point]int
 
 // NewWireGrid initializes the map with 0,0 as starting point
 func NewWireGrid() WireGrid {
 	centralPort := Point{0, 0}
 	wg := make(WireGrid)
-	wg[centralPort] = true
+	wg[centralPort] = 1
 	return wg
 }
 
-func (wg WireGrid) calculateAndAddPoints(instructions string, lastPosition Point) {
+func (wg WireGrid) calculateAndAddPoints(instructions string, lastPosition Point) Point {
+	// this needs to return the lastPosition, in order to receive it in next instruction
+	// need to create rules for all directions
+	// if already in map, increase count
+	// we will then look at records in map for occurances of 2, create function to calculate closest collision from occurances of 2
 	instructionsSplit := strings.Split(instructions, ",")
 	firstInstruction := string(instructionsSplit[0])
 	direction := string(firstInstruction[0])
 	distance, _ := strconv.Atoi(string(firstInstruction[1:]))
+	var finalPosition Point
 	if direction == "R" {
 		for i := 1; i <= distance; i++ {
 			newDistance := lastPosition.y + i
 			newPoint := Point{lastPosition.x, newDistance}
-			wg[newPoint] = true
-			fmt.Println("new point", newPoint)
-			fmt.Println(wg)
+			wg[newPoint] = 1
+			if i == distance {
+				finalPosition = newPoint
+			}
 		}
 	}
+	if direction == "L" {
+		for i := 1; i <= distance; i++ {
+			newDistance := lastPosition.y - i
+			newPoint := Point{lastPosition.x, newDistance}
+			wg[newPoint] = 1
+			if i == distance {
+				finalPosition = newPoint
+			}
+		}
+	}
+
+	if direction == "U" {
+		for i := 1; i <= distance; i++ {
+			newDistance := lastPosition.x + i
+			newPoint := Point{newDistance, lastPosition.y}
+			wg[newPoint] = 1
+			if i == distance {
+				finalPosition = newPoint
+			}
+		}
+	}
+	if direction == "D" {
+		for i := 1; i <= distance; i++ {
+			newDistance := lastPosition.x - i
+			newPoint := Point{newDistance, lastPosition.y}
+			wg[newPoint] = 1
+			if i == distance {
+				finalPosition = newPoint
+			}
+		}
+	}
+	return finalPosition
 }
 
 func main() {
