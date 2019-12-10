@@ -13,14 +13,8 @@ type Point struct {
 	y int
 }
 
-// GridBlock contains the number of times the wire has passed through, plus steps it took to get there
-type GridBlock struct {
-	hit   int
-	steps int
-}
-
 // WireGrid stores the locations both wires have travelled
-type WireGrid map[Point]*GridBlock
+type WireGrid map[Point]int
 
 // NewWireGrid initializes the map with 0,0 as starting point
 func NewWireGrid(instructions string) WireGrid {
@@ -47,7 +41,7 @@ func returnCollisionsSteps(wg1, wg2 WireGrid) int {
 	steps := []int{}
 	for point := range wg2 {
 		if _, ok := wg1[point]; ok {
-			sum := wg1[point].steps + wg2[point].steps
+			sum := wg1[point] + wg2[point]
 			steps = append(steps, sum)
 		}
 	}
@@ -115,8 +109,7 @@ func (wg WireGrid) calculateAndAddPoints(instructions string) {
 
 func (wg WireGrid) plotGrid(newPoint Point, newDistance int, steps int) {
 	if _, ok := wg[newPoint]; !ok {
-		newGridBlock := GridBlock{1, steps}
-		wg[newPoint] = &newGridBlock
+		wg[newPoint] = steps
 	}
 }
 
