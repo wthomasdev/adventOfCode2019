@@ -49,9 +49,13 @@ func checkAdjacentDigitAndIncrease(arr []string) bool {
 		if len(arr)-1 == idx {
 			break
 		}
-		if char == arr[idx+1] {
+
+		str := strings.Join(arr, "")
+		adjacentChar := char + char
+		badAjacentChar := char + char + char
+		if strings.Contains(str, adjacentChar) && !strings.Contains(str, badAjacentChar) {
 			adjacent = true
 		}
 	}
-	return adjacent && increasing
+	return increasing && adjacent
 }
